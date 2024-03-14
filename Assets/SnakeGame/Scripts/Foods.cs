@@ -34,6 +34,7 @@ public class Foods : MonoBehaviour
     {
         while (!gameManager.gameOver)
         {
+            yield return new WaitForSeconds(Random.Range(2, 6));
             int foodsNum = GameObject.FindGameObjectsWithTag("Food").Length;
             if (foodsNum >= maxFoodNum)
             {
@@ -43,7 +44,6 @@ public class Foods : MonoBehaviour
             float y = Random.Range(bottomRange, topRange) * step;
             GameObject newFood = Instantiate(foodPrefab, new Vector3(x, y, 0), Quaternion.identity);
             newFood.transform.parent = transform;
-            yield return new WaitForSeconds(Random.Range(2, 6));
         }
     }
 

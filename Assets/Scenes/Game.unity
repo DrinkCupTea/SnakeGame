@@ -262,8 +262,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -35}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: 137, y: -35}
+  m_SizeDelta: {x: 230, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &239337894
 MonoBehaviour:
@@ -312,8 +312,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -396,7 +396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 325, y: -35}
+  m_AnchoredPosition: {x: 383, y: -35}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &365088568
@@ -446,8 +446,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -512,7 +512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &446839744
 Transform:
   m_ObjectHideFlags: 0
@@ -951,6 +951,7 @@ MonoBehaviour:
   moveRate: 0.25
   snakeSegmentPrefab: {fileID: 6732785179908899542, guid: 132049174aeecb429923e041b9dc6c35, type: 3}
   scale: 1.2
+  headMaterial: {fileID: 2100000, guid: 7cf30b568c30bb234b62fab985b2e0f0, type: 2}
 --- !u!1 &1329467021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,7 +1134,7 @@ MonoBehaviour:
   bottomMargin: 0
   leftMargin: 0
   rightMargin: 0
-  thickness: 0.3
+  thickness: 0.1
   topWallY: 0
   bottomWallY: 0
   leftWallX: 0

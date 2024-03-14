@@ -8,6 +8,7 @@ public class Snake : MonoBehaviour
     [SerializeField] private float moveRate;
     [SerializeField] private GameObject snakeSegmentPrefab;
     [SerializeField] private float scale = 1.2f;
+    [SerializeField] private Material headMaterial;
     private readonly List<GameObject> snakeSegments = new();
     private Vector3 lastMoveDirection = Vector3.left;
     private Vector3 headDirection = Vector3.left;
@@ -21,6 +22,8 @@ public class Snake : MonoBehaviour
         float segmentSize = snakeSegmentPrefab.transform.localScale.x;
         AddSegment(Vector3.zero);
         snakeSegments[0].AddComponent<SnakeHead>();
+        snakeSegments[0].GetComponent<Renderer>().material = headMaterial;
+
         AddSegment(new Vector3(segmentSize * scale, 0, 0));
         AddSegment(new Vector3(segmentSize * 2 * scale, 0, 0));
 
@@ -74,7 +77,6 @@ public class Snake : MonoBehaviour
     {
         while (!gameManager.gameOver)
         {
-            yield return new WaitForSeconds(moveRate);
             Vector3 lastEndSegmentPos = snakeSegments[^1].transform.position;
             Vector3 previousSegmentPos = snakeSegments[0].transform.position;
             MoveSnakeHead();
@@ -88,6 +90,7 @@ public class Snake : MonoBehaviour
                 snakeSegments[0].GetComponent<SnakeHead>().needGrow = false;
             }
             lastMoveDirection = headDirection;
+            yield return new WaitForSeconds(moveRate);
         }
     }
 }
