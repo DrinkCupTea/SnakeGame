@@ -1,13 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+    [SerializeField] private float topMargin;
+    [SerializeField] private float bottomMargin;
+    [SerializeField] private float leftMargin;
+    [SerializeField] private float rightMargin;
+    [SerializeField] private float thickness;
+
+    public float topWallY;
+    public float bottomWallY;
+    public float leftWallX;
+    public float rightWallX;
     private Snake snake;
 
-    // private GameManager gameManager;
-    void Start()
+    void Awake()
     {
         snake = FindObjectOfType<Snake>().GetComponent<Snake>();
         CreateWalls();
@@ -15,19 +23,17 @@ public class Wall : MonoBehaviour
 
     void CreateWalls()
     {
-        float screenHeight = Camera.main.orthographicSize;
-        float screenWidth = screenHeight * Camera.main.aspect;
-        float thickness = screenHeight % (snake.GetSnakeSegmentSize() * 1.2f);
-        if (thickness < 0.3)
-        {
-            thickness += snake.GetSnakeSegmentSize() * 1.2f;
-        }
-        Debug.Log("screenHeight: " + screenHeight + "thickness: " + thickness + "Prefab Size: " + snake.GetSnakeSegmentSize() * 1.2);
+        CalWallPosition();
 
-        CreateWall(new Vector3(0, screenHeight, 0), new Vector3(screenWidth * 2f, thickness, 1));
-        CreateWall(new Vector3(0, -screenHeight, 0), new Vector3(screenWidth * 2f, thickness, 1));
-        CreateWall(new Vector3(-screenWidth, 0, 0), new Vector3(thickness, screenHeight * 2f, 1));
-        CreateWall(new Vector3(screenWidth, 0, 0), new Vector3(thickness, screenHeight * 2f, 1));
+        float horizontalCenter = (bottomMargin - topMargin) / 2;
+        float verticalCenter = (rightMargin - leftMargin) / 2;
+        float width = rightWallX - leftWallX + thickness;
+        float height = topWallY - bottomWallY;
+
+        CreateWall(new Vector3(verticalCenter, topWallY, 0), new Vector3(width, thickness, 1));
+        CreateWall(new Vector3(verticalCenter, bottomWallY, 0), new Vector3(width, thickness, 1));
+        CreateWall(new Vector3(leftWallX, horizontalCenter, 0), new Vector3(thickness, height, 1));
+        CreateWall(new Vector3(rightWallX, horizontalCenter, 0), new Vector3(thickness, height, 1));
     }
 
     GameObject CreateWall(Vector3 position, Vector3 scale)
@@ -38,5 +44,28 @@ public class Wall : MonoBehaviour
         wall.transform.position = position;
         wall.tag = "Wall";
         return wall;
+    }
+
+    void CalWallPosition()
+    {
+        float halfScreenHeight = Camera.main.orthographicSize;
+        float halfScreenWidth = halfScreenHeight * Camera.main.aspect;
+
+        bottomWallY = -halfScreenHeight + bottomMargin;
+        topWallY = halfScreenHeight - topMargin;
+        leftWallX = -halfScreenWidth + leftMargin;
+        rightWallX = halfScreenWidth - rightMargin;
+
+        float segmentSize = snake.GetSnakeSegmentSize();
+
+        topMargin += topWallY % segmentSize;
+        bottomMargin += Mathf.Abs(bottomWallY) % segmentSize;
+        leftMargin += Mathf.Abs(leftWallX) % segmentSize;
+        rightMargin += rightWallX % segmentSize;
+
+        topWallY -= topWallY % segmentSize;
+        bottomWallY += Mathf.Abs(bottomWallY) % segmentSize;
+        leftWallX += Mathf.Abs(leftWallX) % segmentSize;
+        rightWallX -= rightWallX % segmentSize;
     }
 }

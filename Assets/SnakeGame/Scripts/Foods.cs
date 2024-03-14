@@ -8,8 +8,10 @@ public class Foods : MonoBehaviour
     [SerializeField] private int maxFoodNum;
     private GameManager gameManager;
     private float step;
-    private int horizontalRange;
-    private int verticalRange;
+    public int topRange;
+    public int bottomRange;
+    public int leftRange;
+    public int rightRange;
 
     // Start is called before the first frame update
     void Start()
@@ -17,12 +19,13 @@ public class Foods : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
 
         Snake snake = FindObjectOfType<Snake>().GetComponent<Snake>();
-        step = snake.GetSnakeSegmentSize() * 1.2f;
+        step = snake.GetSnakeSegmentSize();
 
-        float screenHeight = Camera.main.orthographicSize;
-        float screenWidth = screenHeight * Camera.main.aspect;
-        horizontalRange = (int)(screenWidth / step);
-        verticalRange = (int)(screenHeight / step);
+        Wall wall = FindObjectOfType<Wall>().GetComponent<Wall>();
+        topRange = (int)(wall.topWallY / step);
+        bottomRange = (int)(wall.bottomWallY / step);
+        leftRange = (int)(wall.leftWallX / step);
+        rightRange = (int)(wall.rightWallX / step);
 
         StartCoroutine(nameof(GenerateFood));
     }
@@ -37,11 +40,12 @@ public class Foods : MonoBehaviour
             {
                 continue;
             }
-            float x = Random.Range(-horizontalRange, horizontalRange) * step;
-            float y = Random.Range(-verticalRange, verticalRange) * step;
+            float x = Random.Range(leftRange, rightRange) * step;
+            float y = Random.Range(bottomRange, topRange) * step;
             GameObject newFood = Instantiate(foodPrefab, new Vector3(x, y, 0), Quaternion.identity);
             newFood.transform.parent = transform;
         }
     }
+
 
 }

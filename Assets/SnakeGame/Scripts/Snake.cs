@@ -42,7 +42,7 @@ public class Snake : MonoBehaviour
     }
     public float GetSnakeSegmentSize()
     {
-        return snakeSegmentPrefab.transform.localScale.x;
+        return snakeSegmentPrefab.transform.localScale.x * scale;
     }
 
     void UpdateHeadDirection()
