@@ -72,13 +72,9 @@ public class Snake : MonoBehaviour
 
     IEnumerator Move()
     {
-        while (true)
+        while (!gameManager.gameOver)
         {
             yield return new WaitForSeconds(moveRate);
-            if (gameManager.gameOver)
-            {
-                break;
-            }
             Vector3 lastEndSegmentPos = snakeSegments[^1].transform.position;
             Vector3 previousSegmentPos = snakeSegments[0].transform.position;
             MoveSnakeHead();
